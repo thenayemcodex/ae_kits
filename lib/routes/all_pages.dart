@@ -29,12 +29,12 @@ class AllPages {
       curve: Curves.bounceInOut,
       transitionDuration: const Duration(seconds: 1),
     ),
-    GetPage(
-      name: PageNames.details,
-      page: () => const DetailsPage(),
-      transition: Transition.cupertinoDialog,
-      curve: Curves.bounceInOut,
-      transitionDuration: const Duration(seconds: 1),
-    ),
+    // GetPage(
+    //   name: PageNames.details,
+    //   page: () =>  DetailsPage(),
+    //   transition: Transition.cupertinoDialog,
+    //   curve: Curves.bounceInOut,
+    //   transitionDuration: const Duration(seconds: 1),
+    // ),
   ];
 }

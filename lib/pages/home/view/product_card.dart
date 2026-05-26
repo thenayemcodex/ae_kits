@@ -19,7 +19,7 @@ class ProductGridCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         print("Card Clicked !");
-        Get.toNamed(PageNames.details, arguments: product);
+        Get.to(DetailsPage(product: product));
       },
       borderRadius: BorderRadius.circular(12.0),
       splashColor: AppColor.primary.withValues(alpha: .1),
@@ -52,31 +52,31 @@ class ProductGridCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  if (hasOffer)
-                    Positioned(
-                      top: 8,
-                      left: 8,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: (product.stock == "Sale")
-                              ? AppColor.success
-                              : AppColor.failed,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Text(
-                          product.stock,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
+
+                  Positioned(
+                    top: 8,
+                    left: 8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: (product.stock == "Sale")
+                            ? AppColor.success
+                            : AppColor.failed,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        product.stock,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
+                  ),
                 ],
               ),
             ),

@@ -1,6 +1,6 @@
 # ae_kits
 
-A new Flutter project.
+A sports kits selling platform.
 
 ## Getting Started
 

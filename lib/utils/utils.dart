@@ -107,6 +107,18 @@ class Utils {
     );
   }
 
+  static Color colorFromString(String hexColor) {
+    final buffer = StringBuffer();
+
+    if (hexColor.length == 7 || hexColor.length == 6) {
+      buffer.write('ff'); // opacity
+    }
+
+    buffer.write(hexColor.replaceFirst('#', ''));
+
+    return Color(int.parse(buffer.toString(), radix: 16));
+  }
+
   // static Future<Map<String, dynamic>?> isConnected() async {
   //   final url = Uri.parse(
   //       'https://raw.githubusercontent.com/thenayemcodex/Noob-Hacker71/refs/heads/main/authentication.json');

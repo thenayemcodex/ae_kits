@@ -56,7 +56,7 @@ class Consts {
       offerValue: 99.99,
       productDescription:
           'High-fidelity wireless headphones with active noise cancellation and 40-hour battery life.',
-      sizes: ['Standard'],
+      sizes: ['S', 'M', 'L', 'XL','2XL','3XL','4XL', 'Standard'],
       reviews: [
         {
           'userId': 'user_101',

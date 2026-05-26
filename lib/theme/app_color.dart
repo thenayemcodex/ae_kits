@@ -12,7 +12,7 @@ class AppColor {
 
   static Color failed = Color(0xfffc4545);
 
-  static Color warning = Color(0xffb7af0b);
+  static Color warning = Color.fromARGB(255, 241, 231, 27);
   static Color success = Color.fromARGB(255, 59, 199, 43);
 
   static final Map<String, Color> attendanceColors = {
