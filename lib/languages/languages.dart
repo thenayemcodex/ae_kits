@@ -10,6 +10,7 @@ class Languages extends Translations {
           // pages label
           "dashboard": "Dashboard",
           "profile": "Profile",
+          "checkout": "Check Out",
           "saved": "Saved",
           "home": "Home",
           "help_center": "Help Center",
@@ -46,6 +47,7 @@ class Languages extends Translations {
 
           // response
           "something_went_wrong": "Something went wrong !",
+          "minimum_quantity" : "Already at the minimum quantity",
           "updated_successfully": "Updated Successfully !",
           "failed_to_update": "Failed To Update !",
           "empty_field": "Required fields might be empty or invalid value",

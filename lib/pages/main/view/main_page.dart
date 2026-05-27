@@ -34,12 +34,19 @@ class MainPage extends StatelessWidget {
               activeIcon: Icons.home_rounded,
               label: "home".tr,
             ),
+
             CurvedNavigationItemPro(
               inactiveIcon: Icons.favorite_border_rounded,
               activeIcon: Icons.favorite_rounded,
               label: "saved".tr,
               badgeText: '•',
             ),
+            CurvedNavigationItemPro(
+              inactiveIcon: Icons.shopping_cart_outlined,
+              activeIcon: Icons.shopping_cart_rounded,
+              label: "checkout".tr,
+            ),
+
             CurvedNavigationItemPro(
               inactiveIcon: Icons.person_2_outlined,
               activeIcon: Icons.person_2_rounded,

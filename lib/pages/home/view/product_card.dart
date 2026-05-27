@@ -19,7 +19,7 @@ class ProductGridCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         print("Card Clicked !");
-        Get.to(DetailsPage(product: product));
+        Get.to(() => DetailsPage(product: product));
       },
       borderRadius: BorderRadius.circular(12.0),
       splashColor: AppColor.primary.withValues(alpha: .1),

@@ -1,3 +1,4 @@
+import 'package:ae_kits/pages/checkout/view/checkout_page.dart';
 import 'package:ae_kits/pages/home/view/home_page.dart';
 import 'package:ae_kits/pages/profile/view/profile_page.dart';
 import 'package:ae_kits/pages/saved/view/saved_page.dart';
@@ -13,6 +14,9 @@ class MainPageController extends GetxController {
     } else if (currentIndex.value == 1) {
       return const SavedPage();
     } else if (currentIndex.value == 2) {
+      return const CheckoutPage();
+    
+    } else if (currentIndex.value == 3) {
       return const ProfilePage();
     } else {
       currentIndex.value == 0;
