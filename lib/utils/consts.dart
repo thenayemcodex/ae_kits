@@ -1,4 +1,5 @@
 import 'package:ae_kits/pages/home/model/product_model.dart';
+import 'package:ae_kits/pages/notification/model/notification_model.dart';
 
 class Consts {
   static final webApiKey = "AIzaSyCUKGOAfz0c2PmL6cmbNy9OLwaI8l6i_aU";
@@ -56,7 +57,7 @@ class Consts {
       offerValue: 99.99,
       productDescription:
           'High-fidelity wireless headphones with active noise cancellation and 40-hour battery life.',
-      sizes: ['S', 'M', 'L', 'XL','2XL','3XL','4XL', 'Standard'],
+      sizes: ['S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', 'Standard'],
       reviews: [
         {
           'userId': 'user_101',
@@ -274,6 +275,98 @@ class Consts {
         },
       ],
       stock: "Stock Out",
+    ),
+  ];
+
+  static List<NotificationModel> notifications = [
+    NotificationModel(
+      id: "1",
+      title: "Order Confirmed",
+      body: "Your order has been placed successfully.",
+      page: "order",
+      isRead: false,
+      date: DateTime.now().millisecondsSinceEpoch,
+    ),
+
+    NotificationModel(
+      id: "2",
+      title: "New Product Arrived",
+      body: "Check out the latest collection in our store.",
+      page: "home",
+      isRead: false,
+      date: DateTime.now().millisecondsSinceEpoch,
+    ),
+
+    NotificationModel(
+      id: "3",
+      title: "Product Added to Saved",
+      body: "Your favorite item has been saved successfully.",
+      page: "saved",
+      isRead: true,
+      date: DateTime.now().millisecondsSinceEpoch,
+    ),
+
+    NotificationModel(
+      id: "4",
+      title: "Profile Updated",
+      body: "Your profile information was updated.",
+      page: "profile",
+      isRead: true,
+      date: DateTime.now().millisecondsSinceEpoch,
+    ),
+
+    NotificationModel(
+      id: "5",
+      title: "Limited Time Offer",
+      body: "Special discount available on selected products.",
+      page: "details",
+      isRead: false,
+      date: DateTime.now().millisecondsSinceEpoch,
+    ),
+
+    NotificationModel(
+      id: "6",
+      title: "Order Shipped",
+      body: "Your order is on the way.",
+      page: "order",
+      isRead: false,
+      date: DateTime.now().millisecondsSinceEpoch,
+    ),
+
+    NotificationModel(
+      id: "7",
+      title: "Welcome Back",
+      body: "Explore new arrivals on the home page.",
+      page: "home",
+      isRead: true,
+      date: DateTime.now().millisecondsSinceEpoch,
+    ),
+
+    NotificationModel(
+      id: "8",
+      title: "Saved Items Reminder",
+      body: "Some items in your saved list are on sale.",
+      page: "saved",
+      isRead: false,
+      date: DateTime.now().millisecondsSinceEpoch,
+    ),
+
+    NotificationModel(
+      id: "9",
+      title: "Account Security",
+      body: "Your password was changed recently.",
+      page: "profile",
+      isRead: true,
+      date: DateTime.now().millisecondsSinceEpoch,
+    ),
+
+    NotificationModel(
+      id: "10",
+      title: "Product Back in Stock",
+      body: "The item you viewed is available again.",
+      page: "checkout",
+      isRead: false,
+      date: DateTime.now().millisecondsSinceEpoch,
     ),
   ];
 }

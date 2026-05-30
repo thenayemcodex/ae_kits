@@ -1,8 +1,7 @@
 import 'package:ae_kits/pages/home/view_model/home_page_controller.dart';
+import 'package:ae_kits/routes/page_names.dart';
 import 'package:ae_kits/theme/app_color.dart';
-import 'package:ae_kits/theme/my_text_styles.dart';
 import 'package:ae_kits/utils/consts.dart';
-import 'package:ae_kits/widgets/my_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -68,6 +67,12 @@ class HomePage extends StatelessWidget {
               ),
             ),
             actions: [
+              IconButton(
+                onPressed: () {
+                  Get.toNamed(PageNames.notification);
+                },
+                icon: const Icon(Icons.notifications),
+              ),
               IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
               IconButton(
                 onPressed: () {

@@ -145,7 +145,7 @@ class DetailsPageController extends GetxController {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 child: MyText(
-                  text: "${reviews[index]["comment"].toString() * 10}",
+                  text: reviews[index]["comment"].toString() * 10,
                   style: MyTextStyles.extraSmall,
                 ),
               ),

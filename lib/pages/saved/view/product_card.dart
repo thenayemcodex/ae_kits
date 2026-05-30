@@ -137,13 +137,16 @@ class ProductGridCard extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                print("Saved Clicked !");
-                                savedPageController.addNewItem(
+                                print("Delete Clicked !");
+                                savedPageController.deleteItem(
                                   context,
                                   productID: product.id,
                                 );
                               },
-                              child: Icon(Icons.favorite_border),
+                              child: Icon(
+                                Icons.favorite,
+                                color: AppColor.failed,
+                              ),
                             ),
                           ],
                         ),

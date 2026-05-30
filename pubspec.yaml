@@ -45,6 +45,7 @@ dependencies:
   pretty_qr_code: 
   flutter_carousel_widget: 
   curved_navigation_bar_pro:
+  flutter_secure_storage:
 
 dev_dependencies:
   flutter_test:

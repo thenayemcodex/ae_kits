@@ -217,7 +217,7 @@ class DetailsPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: MyText(
-                    text: "${product.productDescription * 10}",
+                    text: product.productDescription * 10,
                     style: MyTextStyles.extraSmall,
                   ),
                 ),

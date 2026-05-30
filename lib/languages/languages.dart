@@ -92,7 +92,7 @@ class Languages extends Translations {
           "excel": "Export as excel",
           "refresh": "Refresh",
           "search": "Search",
-          "SL": "SL",
+          
         }
       };
 }

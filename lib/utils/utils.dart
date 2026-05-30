@@ -1,14 +1,10 @@
-import 'dart:convert';
-import 'dart:developer';
 
 import 'package:ae_kits/theme/app_color.dart';
 import 'package:ae_kits/theme/my_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'dart:async';
 
 class Utils {
   static String dateFormat(int milisec, {required String format}) {

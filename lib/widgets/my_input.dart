@@ -114,7 +114,7 @@ class MyInput extends StatelessWidget {
             borderRadius: borderRadius ?? BorderRadius.zero,
             borderSide: BorderSide(
               width: borderWidth ?? 1.0,
-              color: (borderColer ?? Colors.transparent).withOpacity(.5),
+              color: (borderColer ?? Colors.transparent).withValues(alpha: .5),
             ),
           ),
         ),

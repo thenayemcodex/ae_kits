@@ -7,7 +7,9 @@ import 'package:get/get.dart';
 
 import 'languages/languages.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MyApp());
 }
 

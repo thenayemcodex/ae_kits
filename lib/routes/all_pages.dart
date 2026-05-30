@@ -1,6 +1,6 @@
-import 'package:ae_kits/pages/details/view/details_page.dart';
 import 'package:ae_kits/pages/home/view/home_page.dart';
 import 'package:ae_kits/pages/main/view/main_page.dart';
+import 'package:ae_kits/pages/notification/view/notification_page.dart';
 import 'package:ae_kits/pages/splash/view/splash_page.dart';
 import 'package:ae_kits/routes/page_names.dart';
 import 'package:flutter/material.dart';
@@ -29,12 +29,12 @@ class AllPages {
       curve: Curves.bounceInOut,
       transitionDuration: const Duration(seconds: 1),
     ),
-    // GetPage(
-    //   name: PageNames.details,
-    //   page: () =>  DetailsPage(),
-    //   transition: Transition.cupertinoDialog,
-    //   curve: Curves.bounceInOut,
-    //   transitionDuration: const Duration(seconds: 1),
-    // ),
+    GetPage(
+      name: PageNames.notification,
+      page: () => NotificationPage(),
+      transition: Transition.cupertinoDialog,
+      curve: Curves.bounceInOut,
+      transitionDuration: const Duration(seconds: 1),
+    ),
   ];
 }
