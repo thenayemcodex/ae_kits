@@ -1,3 +1,4 @@
+import 'package:ae_kits/pages/checkout/view_model/checkout_page_controller.dart';
 import 'package:ae_kits/pages/details/model/details_model.dart';
 import 'package:ae_kits/pages/home/model/product_model.dart';
 import 'package:ae_kits/theme/app_color.dart';
@@ -8,6 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DetailsPageController extends GetxController {
+  // accessing checkout page controller
+  final checkoutPageController = Get.isRegistered<CheckOutPageController>()
+      ? Get.find<CheckOutPageController>()
+      : Get.put(CheckOutPageController());
+
   RxString currentImage = "".obs;
 
   // customer choise info
@@ -250,7 +256,12 @@ class DetailsPageController extends GetxController {
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      checkoutPageController.addNewProduct(
+                        model: detailsModel.value,
+                      );
+                      Get.back();
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColor.primary,
                       shape: RoundedRectangleBorder(

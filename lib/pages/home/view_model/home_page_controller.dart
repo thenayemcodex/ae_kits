@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:ae_kits/pages/home/model/product_model.dart';
 import 'package:ae_kits/pages/home/view/product_card.dart';
-import 'package:ae_kits/services/local_storage.dart';
 import 'package:ae_kits/theme/app_color.dart';
 import 'package:ae_kits/theme/my_text_styles.dart';
 import 'package:ae_kits/utils/consts.dart';

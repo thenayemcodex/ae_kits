@@ -7,6 +7,7 @@ class ProductModel {
   final List<String> productColors;
   final double unitValue;
   final double offerValue;
+  final double deliveryFees;
   final String productDescription;
   final List<String> sizes;
   final List<Map<String, dynamic>> reviews;
@@ -21,6 +22,7 @@ class ProductModel {
     required this.productColors,
     required this.unitValue,
     required this.offerValue,
+    required this.deliveryFees,
     required this.productDescription,
     required this.sizes,
     required this.reviews,
@@ -36,6 +38,7 @@ class ProductModel {
     List<String>? productColors,
     double? unitValue,
     double? offerValue,
+    double? deliveryFees,
     String? productDescription,
     List<String>? sizes,
     List<Map<String, dynamic>>? reviews,
@@ -50,6 +53,7 @@ class ProductModel {
       productColors: productColors ?? this.productColors,
       unitValue: unitValue ?? this.unitValue,
       offerValue: offerValue ?? this.offerValue,
+      deliveryFees: deliveryFees ?? this.deliveryFees,
       productDescription: productDescription ?? this.productDescription,
       sizes: sizes ?? this.sizes,
       reviews: reviews ?? this.reviews,
@@ -67,6 +71,7 @@ class ProductModel {
       'productColors': productColors,
       'unitValue': unitValue,
       'offerValue': offerValue,
+      'deliveryFees': deliveryFees,
       'productDescription': productDescription,
       'sizes': sizes,
       'reviews': reviews,
@@ -97,11 +102,13 @@ class ProductModel {
           ? (map['offerValue'] as num).toDouble()
           : double.tryParse(map['offerValue'].toString()) ?? 0.0,
 
+      deliveryFees: (map['deliveryFees'] is num)
+          ? (map['deliveryFees'] as num).toDouble()
+          : double.tryParse(map['deliveryFees'].toString()) ?? 0.0,
+
       productDescription: map['productDescription'] ?? '',
 
-      sizes: (map['sizes'] as List? ?? [])
-          .whereType<String>()
-          .toList(),
+      sizes: (map['sizes'] as List? ?? []).whereType<String>().toList(),
 
       reviews: (map['reviews'] as List? ?? [])
           .whereType<Map>()

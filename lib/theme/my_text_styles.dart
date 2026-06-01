@@ -38,13 +38,13 @@ class MyTextStyles {
   );
   static TextStyle smallBold = TextStyle(
     color: AppColor.primaryText,
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: FontWeight.w700,
     letterSpacing: 1,
   );
   static TextStyle small = TextStyle(
     color: AppColor.primaryText,
-    fontSize: 10,
+    fontSize: 9,
     letterSpacing: 1,
   );
   static TextStyle extraSmallBold = TextStyle(

@@ -55,6 +55,7 @@ class Consts {
       productColors: ['#000000', '#FFFFFF', '#34495E'],
       unitValue: 129.99,
       offerValue: 99.99,
+      deliveryFees: 150,
       productDescription:
           'High-fidelity wireless headphones with active noise cancellation and 40-hour battery life.',
       sizes: ['S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', 'Standard'],
@@ -84,6 +85,7 @@ class Consts {
       productColors: ['#FF5733', '#1ABC9C'],
       unitValue: 89.99,
       offerValue: 74.50,
+      deliveryFees: 150,
       productDescription:
           'Lightweight and breathable running shoes designed for maximum comfort and arch support.',
       sizes: ['8', '9', '10', '11'],
@@ -108,6 +110,7 @@ class Consts {
       productColors: ['#7F8C8D', '#2C3E50'],
       unitValue: 55.00,
       offerValue: 45.00,
+      deliveryFees: 150,
       productDescription:
           'Cozy, premium cotton blend fleece hoodie perfect for casual streetwear.',
       sizes: ['S', 'M', 'L', 'XL'],
@@ -125,6 +128,7 @@ class Consts {
       productColors: ['#212121', '#E0E0E0'],
       unitValue: 249.99,
       offerValue: 199.99,
+      deliveryFees: 0,
       productDescription:
           'Track your fitness, heart rate, and notifications seamlessly with a 7-day battery life.',
       sizes: ['40mm', '44mm'],
@@ -148,6 +152,7 @@ class Consts {
       productColors: ['#D35400', '#2C3E50'],
       unitValue: 79.99,
       offerValue: 79.99,
+      deliveryFees: 150,
       productDescription:
           'Programmable drip coffee maker with a thermal carafe to keep your brew hot for hours.',
       sizes: ['12-Cup'],
@@ -176,6 +181,7 @@ class Consts {
       productColors: ['#16A085', '#2C3E50'],
       unitValue: 65.00,
       offerValue: 52.00,
+      deliveryFees: 0,
       productDescription:
           'Durable, weather-resistant backpack featuring a dedicated 15-inch laptop compartment.',
       sizes: ['25L'],
@@ -193,6 +199,7 @@ class Consts {
       productColors: ['#8E44AD', '#27AE60'],
       unitValue: 35.00,
       offerValue: 29.99,
+      deliveryFees: 150,
       productDescription:
           'Eco-friendly, non-slip 6mm thick yoga mat providing optimal cushioning for joints.',
       sizes: ['Standard'],
@@ -216,6 +223,7 @@ class Consts {
       productColors: ['#FFFFFF', '#000000'],
       unitValue: 24.99,
       offerValue: 18.99,
+      deliveryFees: 150,
       productDescription:
           'Compact USB-C power delivery wall charger supporting fast charging for smartphones and tablets.',
       sizes: ['US Plug', 'EU Plug'],
@@ -240,6 +248,7 @@ class Consts {
       productColors: ['#2980B9', '#2C3E50'],
       unitValue: 45.00,
       offerValue: 35.00,
+      deliveryFees: 0,
       productDescription:
           'Classic style sunglasses featuring polarized lenses and a lightweight, durable frame.',
       sizes: ['Standard'],
@@ -258,6 +267,7 @@ class Consts {
       productColors: ['#FFFFFF'],
       unitValue: 39.99,
       offerValue: 32.49,
+      deliveryFees: 150,
       productDescription:
           'Modern LED desk lamp with 3 brightness levels and a built-in wireless smartphone charger.',
       sizes: ['Standard'],
