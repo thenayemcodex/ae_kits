@@ -42,6 +42,23 @@ class Consts {
     "Pet Supplies",
   ];
 
+  static List<Map<String, String>> paymentOption = [
+    {"name": "bKash", "number": "01309545085", "icon": "assets/bkash.png"},
+    {"name": "Nagad", "number": "01712345678", "icon": "assets/nagad.png"},
+    {"name": "Rocket", "number": "01898765432", "icon": "assets/rocket.png"},
+
+    {
+      "name": "Bank Transfer",
+      "number": "DBBL-1234567890123",
+      "icon": "assets/bank_transfer.png",
+    },
+    {
+      "name": "Mastercard",
+      "number": "**** **** **** 5678",
+      "icon": "assets/mastercard.png",
+    },
+  ];
+
   static List<ProductModel> dummyProducts = [
     ProductModel(
       id: 'prod_001',

@@ -12,24 +12,32 @@ class CheckoutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<CheckOutPageController>();
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
 
-            child: MyText(
-              text: "Your product list . . .",
-              style: MyTextStyles.small.copyWith(color: AppColor.grey),
+              child: MyText(
+                text: "Your product list . . .",
+                style: MyTextStyles.small.copyWith(color: AppColor.grey),
+              ),
             ),
-          ),
-          // product list
-          Expanded(child: controller.productListView()),
-          // total payable information
-          controller.costInvoice(),
-        ],
+            // product list
+            controller.productListView(),
+            // total payable information
+            controller.costInvoice(),
+            // delivery address
+            controller.deliveryAddress(),
+            // payment options
+            controller.paymentOptions(context),
+            // additional notes inputs
+            controller.additionalNotesInput(),
+          ],
+        ),
       ),
     );
   }
