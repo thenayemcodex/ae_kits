@@ -36,6 +36,8 @@ class CheckoutPage extends StatelessWidget {
             controller.paymentOptions(context),
             // additional notes inputs
             controller.additionalNotesInput(),
+            // payment button
+            controller.paymentButton(context),
           ],
         ),
       ),

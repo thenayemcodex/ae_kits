@@ -5,6 +5,7 @@ import 'package:ae_kits/theme/app_color.dart';
 import 'package:ae_kits/theme/my_text_styles.dart';
 import 'package:ae_kits/utils/consts.dart';
 import 'package:ae_kits/utils/utils.dart';
+import 'package:ae_kits/widgets/my_input.dart';
 import 'package:ae_kits/widgets/my_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,7 @@ class CheckOutPageController extends GetxController {
   RxDouble totalDeliveryFee = 0.0.obs;
 
   RxBool isNoteAdded = false.obs;
+  TextEditingController notesController = TextEditingController();
 
   @override
   void onReady() {
@@ -717,12 +719,14 @@ class CheckOutPageController extends GetxController {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-      height: 135,
+      height: 200,
       decoration: BoxDecoration(
         color: AppColor.white,
         borderRadius: BorderRadius.circular(5),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -747,7 +751,44 @@ class CheckOutPageController extends GetxController {
               ),
             ],
           ),
+          Obx(
+            () => MyInput(
+              controller: notesController,
+              isReadOnly: !isNoteAdded.value,
+              onChange: (value) {
+                if (value.length > 200) {
+                  printError(info: "Note can not be more 200 letter.");
+                }
+              },
+              borderRadius: BorderRadius.circular(5),
+              fillColor: AppColor.white,
+              height: 150,
+              maxLine: 5,
+            ),
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget paymentButton(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColor.primary,
+          foregroundColor: AppColor.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.check, color: AppColor.white),
+            SizedBox(width: 10),
+            MyText(text: "confirm".tr),
+          ],
+        ),
       ),
     );
   }
