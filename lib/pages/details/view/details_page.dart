@@ -23,6 +23,11 @@ class DetailsPage extends StatelessWidget {
       productCode: product.productCode,
     );
     return Scaffold(
+      floatingActionButton: CircleAvatar(
+        backgroundColor: AppColor.failed,
+        foregroundColor: AppColor.white,
+        child: Icon(Icons.support_agent),
+      ),
       body: Center(
         child: Container(
           width: MediaQuery.sizeOf(context).width,
@@ -57,7 +62,10 @@ class DetailsPage extends StatelessWidget {
                           Get.back();
                         },
                         tooltip: "Go Back",
-                        icon: Icon(Icons.arrow_back_ios_new),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColor.white.withAlpha(150),
+                        ),
+                        icon: Icon(Icons.arrow_back, color: AppColor.primary),
                       ),
                     ),
 

@@ -21,13 +21,43 @@ class ProfilePage extends StatelessWidget {
           style: MyTextStyles.subtitleBold.copyWith(color: AppColor.white),
         ),
       ),
-      body: Column(
-        children: [
-          // user data container
-          controller.userDataContainer(),
-          // profile management options
-          controller.profileManagementOptions(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // user data container
+            controller.userDataContainer(),
+            // profile management options
+            controller.profileManagementOptions(),
+            // developer info
+            Container(
+              width: double.infinity,
+              height: 300,
+              margin: EdgeInsets.only(top: 15),
+              child: Column(
+                children: [
+                  MyText(
+                    text: "app_name".tr,
+                    style: MyTextStyles.smallBold.copyWith(
+                      color: AppColor.grey.withAlpha(120),
+                    ),
+                  ),
+                  MyText(
+                    text: "app_type".tr,
+                    style: MyTextStyles.extraSmall.copyWith(
+                      color: AppColor.grey.withAlpha(120),
+                    ),
+                  ),
+                  MyText(
+                    text: "app_dev".tr,
+                    style: MyTextStyles.extraSmall.copyWith(
+                      color: AppColor.grey.withAlpha(120),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -18,13 +18,27 @@ class CheckoutPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            Obx(
+              () => (controller.productModel.isNotEmpty)
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 5,
+                        horizontal: 10,
+                      ),
 
-              child: MyText(
-                text: "Your product list . . .",
-                style: MyTextStyles.small.copyWith(color: AppColor.grey),
-              ),
+                      child: MyText(
+                        text: "Your product list . . .",
+                        style: MyTextStyles.small.copyWith(
+                          color: AppColor.grey,
+                        ),
+                      ),
+                    )
+                  : Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 250),
+                        child: MyText(text: "There is nothing to show"),
+                      ),
+                    ),
             ),
             // product list
             controller.productListView(),

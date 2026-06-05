@@ -5,6 +5,7 @@ import 'package:ae_kits/theme/app_color.dart';
 import 'package:ae_kits/theme/my_text_styles.dart';
 import 'package:ae_kits/utils/consts.dart';
 import 'package:ae_kits/utils/utils.dart';
+import 'package:ae_kits/widgets/dismissible_delete.dart';
 import 'package:ae_kits/widgets/my_input.dart';
 import 'package:ae_kits/widgets/my_text.dart';
 import 'package:flutter/material.dart';
@@ -83,6 +84,28 @@ class CheckOutPageController extends GetxController {
     calculateTotals();
   }
 
+  Future<bool?> showDeleteDialog(BuildContext context) async {
+    return await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Delete Item'),
+          content: const Text('Are you sure you want to delete this item?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text('No'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text('Yes', style: TextStyle(color: AppColor.failed)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Widget productListView() {
     print("Item Length: ${detailsModel.length} x ${productModel.length}");
     calculateTotals();
@@ -103,151 +126,146 @@ class CheckOutPageController extends GetxController {
             final bool hasOffer =
                 productModel[index].offerValue < productModel[index].unitValue;
 
-            return Container(
-              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              decoration: BoxDecoration(
-                color: AppColor.white,
-                borderRadius: BorderRadius.circular(5),
+            return Dismissible(
+              key: UniqueKey(),
+              background: DismissibleDelete(
+                background: AppColor.failed,
+                foreground: AppColor.white,
               ),
-              child: Row(
-                children: [
-                  Image.network(
-                    height: 65,
-                    width: 65,
-                    fit: BoxFit.cover,
-                    detailsModel[index].productImage,
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        MyText(
-                          text: productModel[index].productName,
-                          style: MyTextStyles.bodyBold,
-                        ),
+              direction: DismissDirection.startToEnd,
 
-                        Row(
-                          children: [
-                            MyText(
-                              text:
-                                  "Price: ${productModel[index].offerValue.toStringAsFixed(2)} ৳",
-                              style: MyTextStyles.small.copyWith(
-                                color: AppColor.success,
-                              ),
-                            ),
-                            if (hasOffer) ...[
-                              const SizedBox(width: 6),
-                              Text(
-                                '${productModel[index].unitValue.toStringAsFixed(2)} ৳',
-                                style: MyTextStyles.extraSmall.copyWith(
-                                  color: AppColor.failed,
-                                  decoration: TextDecoration.lineThrough,
-                                ),
-                              ),
-                            ],
-                          ],
-                        ),
+              confirmDismiss: (direction) async {
+                return await showDeleteDialog(context);
+              },
 
-                        Row(
-                          children: [
-                            MyText(
-                              text: "Quantity:${detailsModel[index].quantity}",
-                              style: MyTextStyles.small.copyWith(
-                                color: AppColor.grey,
-                              ),
-                            ),
-                            MyText(
-                              text: " Size:${detailsModel[index].productSize}",
-                              style: MyTextStyles.small.copyWith(
-                                color: AppColor.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            MyText(
-                              text: "Color: ",
-                              style: MyTextStyles.small.copyWith(
-                                color: AppColor.grey,
-                              ),
-                            ),
-                            Container(
-                              height: 10,
-                              width: 30,
-                              margin: EdgeInsets.symmetric(vertical: 2),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(2),
-                                color: Utils.colorFromString(
-                                  detailsModel[index].productColor,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        (productModel[index].deliveryFees == 0.0)
-                            ? MyText(
-                                text: "Free Shipping",
-                                style: MyTextStyles.extraSmall.copyWith(
+              onDismissed: (direction) {
+                removeItem(index: index);
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 5,
+                  horizontal: 10,
+                ),
+                margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                decoration: BoxDecoration(
+                  color: AppColor.white,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Row(
+                  children: [
+                    Image.network(
+                      height: 65,
+                      width: 65,
+                      fit: BoxFit.cover,
+                      detailsModel[index].productImage,
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          MyText(
+                            text: productModel[index].productName,
+                            style: MyTextStyles.bodyBold,
+                          ),
+
+                          Row(
+                            children: [
+                              MyText(
+                                text:
+                                    "Price: ${productModel[index].offerValue.toStringAsFixed(2)} ৳",
+                                style: MyTextStyles.small.copyWith(
                                   color: AppColor.success,
                                 ),
-                              )
-                            : MyText(
+                              ),
+                              if (hasOffer) ...[
+                                const SizedBox(width: 6),
+                                Text(
+                                  '${productModel[index].unitValue.toStringAsFixed(2)} ৳',
+                                  style: MyTextStyles.extraSmall.copyWith(
+                                    color: AppColor.failed,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
+
+                          Row(
+                            children: [
+                              MyText(
                                 text:
-                                    "Shipping: ${productModel[index].deliveryFees.toStringAsFixed(2)} ৳",
-                                style: MyTextStyles.extraSmall.copyWith(
+                                    "Quantity:${detailsModel[index].quantity}",
+                                style: MyTextStyles.small.copyWith(
                                   color: AppColor.grey,
                                 ),
                               ),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 8.5,
-                          horizontal: 8.5,
-                        ),
-                        decoration: BoxDecoration(
-                          border: BoxBorder.all(
-                            color: AppColor.success,
-                            width: 1,
+                              MyText(
+                                text:
+                                    " Size:${detailsModel[index].productSize}",
+                                style: MyTextStyles.small.copyWith(
+                                  color: AppColor.grey,
+                                ),
+                              ),
+                            ],
                           ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: MyText(
-                          text:
-                              "${productModel[index].offerValue * detailsModel[index].quantity} ৳",
-                          style: MyTextStyles.bodyBold.copyWith(
-                            color: AppColor.success,
+                          Row(
+                            children: [
+                              MyText(
+                                text: "Color: ",
+                                style: MyTextStyles.small.copyWith(
+                                  color: AppColor.grey,
+                                ),
+                              ),
+                              Container(
+                                height: 10,
+                                width: 30,
+                                margin: EdgeInsets.symmetric(vertical: 2),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(2),
+                                  color: Utils.colorFromString(
+                                    detailsModel[index].productColor,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
+                          (productModel[index].deliveryFees == 0.0)
+                              ? MyText(
+                                  text: "Free Shipping",
+                                  style: MyTextStyles.extraSmall.copyWith(
+                                    color: AppColor.success,
+                                  ),
+                                )
+                              : MyText(
+                                  text:
+                                      "Shipping: ${productModel[index].deliveryFees.toStringAsFixed(2)} ৳",
+                                  style: MyTextStyles.extraSmall.copyWith(
+                                    color: AppColor.grey,
+                                  ),
+                                ),
+                        ],
                       ),
-
-                      SizedBox(width: 10),
-
-                      InkWell(
-                        onTap: () {
-                          removeItem(index: index);
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(5),
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 8.5),
                           decoration: BoxDecoration(
-                            border: BoxBorder.all(
-                              color: AppColor.failed,
-                              width: 1,
-                            ),
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          child: Icon(Icons.delete, color: AppColor.failed),
+                          child: MyText(
+                            text:
+                                "${productModel[index].offerValue * detailsModel[index].quantity} ৳",
+                            style: MyTextStyles.bodyBold.copyWith(
+                              color: AppColor.success,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             );
           },
@@ -497,7 +515,7 @@ class CheckOutPageController extends GetxController {
           ? Container(
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
               margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              height: 135,
+              height: 80,
               decoration: BoxDecoration(
                 color: AppColor.white,
                 borderRadius: BorderRadius.circular(5),
@@ -534,15 +552,11 @@ class CheckOutPageController extends GetxController {
                           );
                         },
                         child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 5,
-                            horizontal: 5,
-                          ),
                           margin: const EdgeInsets.symmetric(
                             vertical: 5,
                             horizontal: 5,
                           ),
-                          height: 40,
+
                           decoration: BoxDecoration(
                             color: AppColor.secondary,
                             borderRadius: BorderRadius.circular(5),
@@ -553,30 +567,21 @@ class CheckOutPageController extends GetxController {
                                 borderRadius: BorderRadius.circular(5),
                                 child: Image.asset(
                                   Consts.paymentOption[0]["icon"]!,
-                                  width: 40,
-                                  height: 40,
+                                  width: 45,
+                                  height: 35,
                                   fit: BoxFit.cover,
                                 ),
-                              ),
-                              SizedBox(width: 5),
-                              MyText(
-                                text: Consts.paymentOption[0]["name"]!,
-                                style: MyTextStyles.body,
                               ),
                             ],
                           ),
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 5,
-                          horizontal: 5,
-                        ),
                         margin: const EdgeInsets.symmetric(
                           vertical: 5,
                           horizontal: 5,
                         ),
-                        height: 40,
+
                         decoration: BoxDecoration(
                           color: AppColor.secondary,
                           borderRadius: BorderRadius.circular(5),
@@ -587,30 +592,21 @@ class CheckOutPageController extends GetxController {
                               borderRadius: BorderRadius.circular(5),
                               child: Image.asset(
                                 Consts.paymentOption[1]["icon"]!,
-                                width: 40,
-                                height: 40,
+                                width: 45,
+                                height: 35,
                                 fit: BoxFit.cover,
                               ),
-                            ),
-                            SizedBox(width: 5),
-                            MyText(
-                              text: Consts.paymentOption[1]["name"]!,
-                              style: MyTextStyles.body,
                             ),
                           ],
                         ),
                       ),
 
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 5,
-                          horizontal: 5,
-                        ),
                         margin: const EdgeInsets.symmetric(
                           vertical: 5,
                           horizontal: 5,
                         ),
-                        height: 40,
+
                         decoration: BoxDecoration(
                           color: AppColor.secondary,
                           borderRadius: BorderRadius.circular(5),
@@ -621,89 +617,52 @@ class CheckOutPageController extends GetxController {
                               borderRadius: BorderRadius.circular(5),
                               child: Image.asset(
                                 Consts.paymentOption[2]["icon"]!,
-                                width: 40,
-                                height: 40,
+                                width: 45,
+                                height: 35,
                                 fit: BoxFit.cover,
                               ),
-                            ),
-                            SizedBox(width: 5),
-                            MyText(
-                              text: Consts.paymentOption[2]["name"]!,
-                              style: MyTextStyles.body,
                             ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          vertical: 5,
+                          horizontal: 5,
+                        ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 5,
-                          horizontal: 5,
-                        ),
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 5,
-                          horizontal: 5,
-                        ),
-                        height: 40,
                         decoration: BoxDecoration(
                           color: AppColor.secondary,
                           borderRadius: BorderRadius.circular(5),
                         ),
-                        child: Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(5),
-                              child: Image.asset(
-                                Consts.paymentOption[3]["icon"]!,
-                                width: 40,
-                                height: 40,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            SizedBox(width: 5),
-                            MyText(
-                              text: Consts.paymentOption[3]["name"]!,
-                              style: MyTextStyles.body,
-                            ),
-                          ],
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Image.asset(
+                            Consts.paymentOption[3]["icon"]!,
+                            width: 45,
+                            height: 35,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 5,
-                          horizontal: 5,
-                        ),
                         margin: const EdgeInsets.symmetric(
                           vertical: 5,
                           horizontal: 5,
                         ),
-                        height: 40,
+
                         decoration: BoxDecoration(
                           color: AppColor.secondary,
                           borderRadius: BorderRadius.circular(5),
                         ),
-                        child: Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(5),
-                              child: Image.asset(
-                                Consts.paymentOption[4]["icon"]!,
-                                width: 40,
-                                height: 40,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            SizedBox(width: 5),
-                            MyText(
-                              text: Consts.paymentOption[4]["name"]!,
-                              style: MyTextStyles.body,
-                            ),
-                          ],
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Image.asset(
+                            Consts.paymentOption[4]["icon"]!,
+                            width: 45,
+                            height: 35,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ],
@@ -716,80 +675,94 @@ class CheckOutPageController extends GetxController {
   }
 
   Widget additionalNotesInput() {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-      height: 200,
-      decoration: BoxDecoration(
-        color: AppColor.white,
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              MyText(
-                text: "I want to send an additional note with parcel.",
-                style: MyTextStyles.small.copyWith(color: AppColor.grey),
+    return Obx(
+      () => (productModel.isNotEmpty)
+          ? Container(
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              height: 200,
+              decoration: BoxDecoration(
+                color: AppColor.white,
+                borderRadius: BorderRadius.circular(5),
               ),
-              Obx(
-                () => Checkbox(
-                  checkColor: AppColor.primary,
-                  fillColor: WidgetStateProperty.all(AppColor.secondary),
-                  value: isNoteAdded.value,
-                  side: BorderSide(
-                    color: AppColor.grey.withAlpha(60),
-                    width: 1.5,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      MyText(
+                        text: "I want to send an additional note with parcel.",
+                        style: MyTextStyles.small.copyWith(
+                          color: AppColor.grey,
+                        ),
+                      ),
+                      Obx(
+                        () => Checkbox(
+                          checkColor: AppColor.primary,
+                          fillColor: WidgetStateProperty.all(
+                            AppColor.secondary,
+                          ),
+                          value: isNoteAdded.value,
+                          side: BorderSide(
+                            color: AppColor.grey.withAlpha(60),
+                            width: 1.5,
+                          ),
+                          onChanged: (value) {
+                            isNoteAdded.value = !isNoteAdded.value;
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                  onChanged: (value) {
-                    isNoteAdded.value = !isNoteAdded.value;
-                  },
-                ),
+                  Obx(
+                    () => MyInput(
+                      controller: notesController,
+                      isReadOnly: !isNoteAdded.value,
+                      onChange: (value) {
+                        if (value.length > 200) {
+                          printError(info: "Note can not be more 200 letter.");
+                        }
+                      },
+                      borderRadius: BorderRadius.circular(5),
+                      fillColor: AppColor.white,
+                      height: 140,
+                      maxLine: 5,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-          Obx(
-            () => MyInput(
-              controller: notesController,
-              isReadOnly: !isNoteAdded.value,
-              onChange: (value) {
-                if (value.length > 200) {
-                  printError(info: "Note can not be more 200 letter.");
-                }
-              },
-              borderRadius: BorderRadius.circular(5),
-              fillColor: AppColor.white,
-              height: 150,
-              maxLine: 5,
-            ),
-          ),
-        ],
-      ),
+            )
+          : SizedBox(),
     );
   }
 
   Widget paymentButton(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColor.primary,
-          foregroundColor: AppColor.white,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.check, color: AppColor.white),
-            SizedBox(width: 10),
-            MyText(text: "confirm".tr),
-          ],
-        ),
-      ),
+    return Obx(
+      () => (productModel.isNotEmpty)
+          ? Container(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColor.primary,
+                  foregroundColor: AppColor.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.check, color: AppColor.white),
+                    SizedBox(width: 10),
+                    MyText(text: "confirm".tr),
+                  ],
+                ),
+              ),
+            )
+          : SizedBox(),
     );
   }
 }

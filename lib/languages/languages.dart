@@ -32,8 +32,9 @@ class Languages extends Translations {
           "access_denied": "You Can Not Access This Platform Anymore. Platform Access Has Been Blocked By The Owner. Contact With The Developer For More Details !",
 
           // main page
-          "com_name": "AIMS Group",
-          "app_type": "Store Management System",
+          "com_name": "AE-Kits",
+          "app_type": "Online Sports Kits Shopping",
+          "app_dev": "Develop & Maintained by TheNayemCodex",
           "you_are_not_authenticated_right_now": "You are not authenticated right now",
 
           // help center

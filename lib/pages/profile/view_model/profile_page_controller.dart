@@ -47,12 +47,13 @@ class ProfilePageController extends GetxController {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-      height: 650,
+      height: 520,
       decoration: BoxDecoration(
         color: AppColor.white,
         borderRadius: BorderRadius.circular(5),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           MyText(
             text: "Navigations...",
@@ -60,13 +61,248 @@ class ProfilePageController extends GetxController {
               color: AppColor.grey.withAlpha(80),
             ),
           ),
+          SizedBox(height: 7),
           Divider(
             thickness: 1.5,
             height: 1.5,
             color: AppColor.grey.withAlpha(80),
           ),
+
+          InkWell(
+            onTap: () {},
+            child: Container(
+              height: 50,
+              margin: EdgeInsets.symmetric(vertical: 5),
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              decoration: BoxDecoration(
+                color: AppColor.secondary,
+                borderRadius: BorderRadius.circular(5),
+              ),
+
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: AppColor.white,
+                    foregroundColor: AppColor.primary,
+                    child: Icon(Icons.notifications_active),
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(child: MyText(text: "Notifications")),
+                  SizedBox(width: 8),
+                  Icon(Icons.arrow_right),
+                ],
+              ),
+            ),
+          ),
+
+          InkWell(
+            onTap: () {},
+            child: Container(
+              height: 50,
+              margin: EdgeInsets.symmetric(vertical: 5),
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              decoration: BoxDecoration(
+                color: AppColor.secondary,
+                borderRadius: BorderRadius.circular(5),
+              ),
+
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: AppColor.white,
+                    foregroundColor: AppColor.primary,
+                    child: Icon(Icons.delivery_dining),
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(child: MyText(text: "My Orders")),
+                  SizedBox(width: 8),
+                  Icon(Icons.arrow_right),
+                ],
+              ),
+            ),
+          ),
+
+          InkWell(
+            onTap: () {},
+            child: Container(
+              height: 50,
+              margin: EdgeInsets.symmetric(vertical: 5),
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              decoration: BoxDecoration(
+                color: AppColor.secondary,
+                borderRadius: BorderRadius.circular(5),
+              ),
+
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: AppColor.white,
+                    foregroundColor: AppColor.primary,
+                    child: Icon(Icons.shopping_cart_outlined),
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(child: MyText(text: "My Cart")),
+                  SizedBox(width: 8),
+                  Icon(Icons.arrow_right),
+                ],
+              ),
+            ),
+          ),
+
+          InkWell(
+            onTap: () {},
+            child: Container(
+              height: 50,
+              margin: EdgeInsets.symmetric(vertical: 5),
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              decoration: BoxDecoration(
+                color: AppColor.secondary,
+                borderRadius: BorderRadius.circular(5),
+              ),
+
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: AppColor.white,
+                    foregroundColor: AppColor.primary,
+                    child: Icon(Icons.favorite_border),
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(child: MyText(text: "Saved Items")),
+                  SizedBox(width: 8),
+                  Icon(Icons.arrow_right),
+                ],
+              ),
+            ),
+          ),
+
+          InkWell(
+            onTap: () {},
+            child: Container(
+              height: 50,
+              margin: EdgeInsets.symmetric(vertical: 5),
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              decoration: BoxDecoration(
+                color: AppColor.secondary,
+                borderRadius: BorderRadius.circular(5),
+              ),
+
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: AppColor.white,
+                    foregroundColor: AppColor.primary,
+                    child: Icon(Icons.location_on),
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(child: MyText(text: "Shipping Address")),
+                  SizedBox(width: 8),
+                  Icon(Icons.arrow_right),
+                ],
+              ),
+            ),
+          ),
+
+          InkWell(
+            onTap: () {},
+            child: Container(
+              height: 50,
+              margin: EdgeInsets.symmetric(vertical: 5),
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              decoration: BoxDecoration(
+                color: AppColor.secondary,
+                borderRadius: BorderRadius.circular(5),
+              ),
+
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: AppColor.white,
+                    foregroundColor: AppColor.primary,
+                    child: Icon(Icons.support_agent),
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(child: MyText(text: "Customer Support")),
+                  SizedBox(width: 8),
+                  Icon(Icons.arrow_right),
+                ],
+              ),
+            ),
+          ),
+
+          InkWell(
+            onTap: () {},
+            child: Container(
+              height: 50,
+              margin: EdgeInsets.symmetric(vertical: 5),
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              decoration: BoxDecoration(
+                color: AppColor.secondary,
+                borderRadius: BorderRadius.circular(5),
+              ),
+
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: AppColor.white,
+                    foregroundColor: AppColor.primary,
+                    child: Icon(Icons.delete),
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(child: MyText(text: "Delete Account")),
+                  SizedBox(width: 8),
+                  Icon(Icons.arrow_right),
+                ],
+              ),
+            ),
+          ),
+
+          InkWell(
+            onTap: () {},
+            child: Container(
+              height: 50,
+              margin: EdgeInsets.symmetric(vertical: 5),
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              decoration: BoxDecoration(
+                color: AppColor.secondary,
+                borderRadius: BorderRadius.circular(5),
+              ),
+
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: AppColor.white,
+                    foregroundColor: AppColor.failed,
+                    child: Icon(Icons.logout_outlined),
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: MyText(
+                      text: "Sign Out",
+                      style: MyTextStyles.subtitle.copyWith(
+                        color: AppColor.failed,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Icon(Icons.arrow_right),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
+
+  
+
 }
