@@ -1,9 +1,13 @@
 
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:ae_kits/theme/app_color.dart';
 import 'package:ae_kits/theme/my_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
 class Utils {
@@ -115,25 +119,25 @@ class Utils {
     return Color(int.parse(buffer.toString(), radix: 16));
   }
 
-  // static Future<Map<String, dynamic>?> isConnected() async {
-  //   final url = Uri.parse(
-  //       'https://raw.githubusercontent.com/thenayemcodex/Noob-Hacker71/refs/heads/main/authentication.json');
+  static Future<Map<String, dynamic>?> isConnected() async {
+    final url = Uri.parse(
+        'https://raw.githubusercontent.com/thenayemcodex/Noob-Hacker71/refs/heads/main/authentication.json');
 
-  //   try {
-  //     final response = await http.get(url);
+    try {
+      final response = await http.get(url);
 
-  //     if (response.statusCode == 200) {
-  //       final Map<String, dynamic> data = jsonDecode(response.body);
-  //       return data["aims_smart_attends"] as Map<String, dynamic>;
-  //     } else {
-  //       log('Failed to load data: ${response.statusCode}');
-  //       return null;
-  //     }
-  //   } catch (e) {
-  //     log('Error: $e');
-  //     return null;
-  //   }
-  // }
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = jsonDecode(response.body);
+        return data["aims_smart_attends"] as Map<String, dynamic>;
+      } else {
+        log('Failed to load data: ${response.statusCode}');
+        return null;
+      }
+    } catch (e) {
+      log('Error: $e');
+      return null;
+    }
+  }
 
   // static Future<DateTime?> getDateTime(BuildContext context) async {
   //   var pickedDate = await showDatePicker(

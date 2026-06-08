@@ -1,5 +1,6 @@
 import 'package:ae_kits/pages/details/model/details_model.dart'
     show DetailsModel;
+import 'package:ae_kits/pages/details/view/product_card.dart';
 import 'package:ae_kits/pages/details/view_model/details_page_controller.dart';
 import 'package:ae_kits/pages/home/model/product_model.dart';
 import 'package:ae_kits/theme/app_color.dart';
@@ -9,19 +10,26 @@ import 'package:ae_kits/widgets/my_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DetailsPage extends StatelessWidget {
-  final ProductModel product;
-  const DetailsPage({super.key, required this.product});
+class DetailsPage extends StatefulWidget {
+  ProductModel product;
+  DetailsPage({super.key, required this.product});
 
+  @override
+  State<DetailsPage> createState() => _DetailsPageState();
+}
+
+class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<DetailsPageController>();
     // Check if an offer exists to show a discount badge or strikethrough price
-    final bool hasOffer = product.offerValue < product.unitValue;
-    controller.currentImage.value = product.productImages.first;
+    final bool hasOffer = widget.product.offerValue < widget.product.unitValue;
+    controller.currentImage.value = widget.product.productImages.first;
+    controller.productCategory = widget.product.category;
     controller.detailsModel.value = controller.detailsModel.value.copyWith(
-      productCode: product.productCode,
+      productCode: widget.product.productCode,
     );
+    controller.getSimilarProducts();
     return Scaffold(
       floatingActionButton: CircleAvatar(
         backgroundColor: AppColor.failed,
@@ -78,13 +86,13 @@ class DetailsPage extends StatelessWidget {
                           vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: (product.stock == "Sale")
+                          color: (widget.product.stock == "Sale")
                               ? AppColor.success
                               : AppColor.failed,
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Text(
-                          product.stock,
+                          widget.product.stock,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 10,
@@ -108,7 +116,7 @@ class DetailsPage extends StatelessWidget {
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
-                          children: product.productImages
+                          children: widget.product.productImages
                               .map(
                                 (image) => Padding(
                                   padding: const EdgeInsets.only(
@@ -148,7 +156,7 @@ class DetailsPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        product.category.toUpperCase(),
+                        widget.product.category.toUpperCase(),
                         style: TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.w600,
@@ -157,7 +165,7 @@ class DetailsPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        product.productName,
+                        widget.product.productName,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -171,7 +179,7 @@ class DetailsPage extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            '\$${product.offerValue.toStringAsFixed(2)}',
+                            '${widget.product.offerValue.toStringAsFixed(2)}৳',
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
@@ -181,7 +189,7 @@ class DetailsPage extends StatelessWidget {
                           if (hasOffer) ...[
                             const SizedBox(width: 6),
                             Text(
-                              '\$${product.unitValue.toStringAsFixed(2)}',
+                              '${widget.product.unitValue.toStringAsFixed(2)}৳',
                               style: TextStyle(
                                 fontSize: 12,
                                 color: AppColor.failed,
@@ -210,14 +218,30 @@ class DetailsPage extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 5),
                         child: controller.colorSelection(
-                          colors: product.productColors,
+                          colors: widget.product.productColors,
                         ),
                       ),
 
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 5),
-                        child: controller.sizeSelection(sizes: product.sizes),
+                        child: controller.sizeSelection(
+                          sizes: widget.product.sizes,
+                        ),
                       ),
+                      if (widget.product.deliveryFees == 0) ...[
+                        Row(
+                          children: [
+                            Icon(Icons.delivery_dining, size: 12),
+                            SizedBox(width: 5),
+                            MyText(
+                              text: "Free delivery",
+                              style: MyTextStyles.extraSmall.copyWith(
+                                color: AppColor.success,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ],
                   ),
                 ),
@@ -225,12 +249,37 @@ class DetailsPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: MyText(
-                    text: product.productDescription * 10,
+                    text:
+                        "Description: ${widget.product.productDescription * 10}",
                     style: MyTextStyles.extraSmall,
                   ),
                 ),
 
                 Divider(),
+                // similiar product list view
+                SizedBox(
+                  height: 250,
+
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: controller.similarProducts.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          widget.product = controller.similarProducts[index];
+                          setState(() {});
+                        },
+                        child: SizedBox(
+                          width: 150,
+                          child: ProductGridCard(
+                            product: controller.similarProducts[index],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: MyText(
@@ -239,10 +288,7 @@ class DetailsPage extends StatelessWidget {
                   ),
                 ),
 
-                Container(
-                  constraints: BoxConstraints(maxHeight: 400, minHeight: 100),
-                  child: controller.reviewListView(reviews: product.reviews),
-                ),
+                controller.reviewListView(reviews: widget.product.reviews),
               ],
             ),
           ),
@@ -251,13 +297,7 @@ class DetailsPage extends StatelessWidget {
 
       bottomNavigationBar: Container(
         height: 30,
-        decoration: BoxDecoration(
-          color: AppColor.primary,
-          // borderRadius: BorderRadius.only(
-          //   topLeft: Radius.circular(10),
-          //   topRight: Radius.circular(10),
-          // ),
-        ),
+        decoration: BoxDecoration(color: AppColor.primary),
         child: Row(
           children: [
             Expanded(
@@ -278,7 +318,10 @@ class DetailsPage extends StatelessWidget {
                           print(
                             controller.detailsModel.value.toMap().toString(),
                           );
-                          controller.showConfirmationDialog(context, product);
+                          controller.showConfirmationDialog(
+                            context,
+                            widget.product,
+                          );
                         } else {
                           Utils.showWarningToast(
                             context,
@@ -322,38 +365,42 @@ class DetailsPage extends StatelessWidget {
               ),
             ),
             Container(
-              width: 163,
+              width: 123,
               padding: EdgeInsets.symmetric(horizontal: 5),
               decoration: BoxDecoration(color: AppColor.secondary),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  OutlinedButton(
-                    onPressed: () {
-                      if (controller.detailsModel.value.quantity <= 1) {
-                        Utils.showFailedToast(context, "minimum_quantity".tr);
-                      } else {
-                        controller.detailsModel.value = controller
-                            .detailsModel
-                            .value
-                            .copyWith(
-                              quantity:
-                                  controller.detailsModel.value.quantity - 1,
-                            );
-                      }
-                    },
-                    style: OutlinedButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      side: BorderSide(color: AppColor.primary, width: 1),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(2),
+                  SizedBox(
+                    width: 30,
+                    child: OutlinedButton(
+                      onPressed: () {
+                        if (controller.detailsModel.value.quantity <= 1) {
+                          Utils.showFailedToast(context, "minimum_quantity".tr);
+                        } else {
+                          controller.detailsModel.value = controller
+                              .detailsModel
+                              .value
+                              .copyWith(
+                                quantity:
+                                    controller.detailsModel.value.quantity - 1,
+                              );
+                        }
+                      },
+                      style: OutlinedButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        side: BorderSide(color: AppColor.primary, width: 1),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(2),
+                        ),
                       ),
+                      child: Icon(Icons.remove),
                     ),
-                    child: Icon(Icons.remove),
                   ),
 
                   Padding(
-                    padding: EdgeInsetsGeometry.symmetric(horizontal: 10),
+                    padding: EdgeInsetsGeometry.symmetric(horizontal: 5),
                     child: Obx(
                       () => MyText(
                         text: controller.detailsModel.value.quantity.toString(),
@@ -362,24 +409,28 @@ class DetailsPage extends StatelessWidget {
                     ),
                   ),
 
-                  OutlinedButton(
-                    onPressed: () {
-                      controller.detailsModel.value = controller
-                          .detailsModel
-                          .value
-                          .copyWith(
-                            quantity:
-                                controller.detailsModel.value.quantity + 1,
-                          );
-                    },
-                    style: OutlinedButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      side: BorderSide(color: AppColor.primary, width: 1),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(2),
+                  SizedBox(
+                    width: 30,
+                    child: OutlinedButton(
+                      onPressed: () {
+                        controller.detailsModel.value = controller
+                            .detailsModel
+                            .value
+                            .copyWith(
+                              quantity:
+                                  controller.detailsModel.value.quantity + 1,
+                            );
+                      },
+
+                      style: OutlinedButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        side: BorderSide(color: AppColor.primary, width: 1),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(2),
+                        ),
                       ),
+                      child: Icon(Icons.add),
                     ),
-                    child: Icon(Icons.add),
                   ),
                 ],
               ),

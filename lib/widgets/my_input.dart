@@ -10,7 +10,6 @@ class MyInput extends StatelessWidget {
   final TextEditingController controller;
   final String? label;
   final TextStyle? labelStyle;
-  final TextStyle? style;
   final String? placeholder;
   final bool? isEnabled;
   final bool? isReadOnly;
@@ -34,7 +33,6 @@ class MyInput extends StatelessWidget {
     this.width,
     this.label,
     this.labelStyle,
-    this.style,
     this.placeholder,
     this.isEnabled,
     this.isReadOnly,
@@ -58,8 +56,10 @@ class MyInput extends StatelessWidget {
       width: width,
       child: TextField(
         controller: controller,
+        canRequestFocus: true,
         autofocus: true,
         cursorColor: AppColor.primary,
+        cursorErrorColor: AppColor.failed,
         enabled: isEnabled,
         readOnly: isReadOnly ?? false,
         maxLines: maxLine ?? 1,
@@ -72,12 +72,12 @@ class MyInput extends StatelessWidget {
           onChange(controller.text);
         },
         onEditingComplete: onEditingComplete,
-        style: style ?? MyTextStyles.body.copyWith(color: textColor ?? AppColor.primaryText),
+        style: MyTextStyles.body.copyWith(color: textColor ?? AppColor.primaryText),
         decoration: InputDecoration(
           filled: true,
           fillColor: fillColor,
           hintText: placeholder,
-          hintStyle: labelStyle,
+          hintStyle: MyTextStyles.bodyBold.copyWith(color: textColor ?? AppColor.grey),
           labelText: label,
           labelStyle: labelStyle,
           suffixIcon: suffixIcon,
@@ -107,7 +107,7 @@ class MyInput extends StatelessWidget {
             borderRadius: borderRadius ?? BorderRadius.zero,
             borderSide: BorderSide(
               width: borderWidth ?? 1.0,
-              color: borderColer ?? AppColor.grey,
+              color: Colors.transparent,
             ),
           ),
           border: OutlineInputBorder(

@@ -5,6 +5,7 @@ import 'package:ae_kits/pages/home/view/product_card.dart';
 import 'package:ae_kits/theme/app_color.dart';
 import 'package:ae_kits/theme/my_text_styles.dart';
 import 'package:ae_kits/utils/consts.dart';
+import 'package:ae_kits/widgets/my_input.dart';
 import 'package:ae_kits/widgets/my_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,6 +23,11 @@ class HomePageController extends GetxController {
   // product grid view
   RxList<ProductModel> updatedProductModel = <ProductModel>[].obs;
   List<ProductModel> completeProductModel = Consts.dummyProducts;
+
+  // search button
+  RxBool isSearchBarOpen = false.obs;
+  TextEditingController searchBarController = TextEditingController();
+  RxDouble searchBarSize = 0.9.obs;
 
   @override
   void onReady() {
@@ -149,5 +155,36 @@ class HomePageController extends GetxController {
         ),
       );
     });
+  }
+
+  Widget searchBar() {
+    return SliverToBoxAdapter(
+      child: Obx(
+        () => AnimatedScale(
+          duration: Duration(seconds: 1),
+          scale: searchBarSize.value,
+          child: Obx(
+            () => (searchBarSize.value == 0.9)
+                ? MyInput(
+                    controller: searchBarController,
+                    onChange: (value) {},
+                    maxLine: 1,
+                    height: 45,
+                    placeholder: "Search here",
+                    suffixIcon
+                    : IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.search, color: AppColor.white, size: 30),
+                    ),
+
+                    borderRadius: BorderRadius.circular(5),
+                    borderColer: Colors.transparent,
+                    fillColor: AppColor.grey.withAlpha(30),
+                  )
+                : SizedBox(),
+          ),
+        ),
+      ),
+    );
   }
 }

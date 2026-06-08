@@ -12,13 +12,10 @@ class SmallScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Transform.scale(
-              scale: .5,
-              child: SvgPicture.asset(
-                "assets/devices.svg",
-                height: 100,
-                width: 100,
-              ),
+            SvgPicture.asset(
+              "assets/devices.svg",
+              width: 150,
+              height: 150,
             ),
           ],
         ),

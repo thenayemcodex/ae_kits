@@ -1,6 +1,7 @@
 import 'package:ae_kits/pages/checkout/view_model/checkout_page_controller.dart';
 import 'package:ae_kits/pages/details/model/details_model.dart';
 import 'package:ae_kits/pages/home/model/product_model.dart';
+import 'package:ae_kits/pages/home/view_model/home_page_controller.dart';
 import 'package:ae_kits/theme/app_color.dart';
 import 'package:ae_kits/theme/my_text_styles.dart';
 import 'package:ae_kits/utils/utils.dart';
@@ -14,9 +15,16 @@ class DetailsPageController extends GetxController {
       ? Get.find<CheckOutPageController>()
       : Get.put(CheckOutPageController());
 
+  // accessing checkout page controller
+  final homePageController = Get.find<HomePageController>();
+
+  // similar product view
+  RxList<ProductModel> similarProducts = <ProductModel>[].obs;
+
   RxString currentImage = "".obs;
 
   // customer choise info
+  String productCategory = "";
   Rx<DetailsModel> detailsModel = DetailsModel(
     id: "",
     productImage: "",
@@ -25,6 +33,17 @@ class DetailsPageController extends GetxController {
     productSize: "",
     quantity: 1,
   ).obs;
+
+  void getSimilarProducts() {
+    var list = homePageController.completeProductModel;
+    similarProducts.clear();
+    for (var product in list) {
+      if (product.category == productCategory) {
+        similarProducts.addIf(!similarProducts.contains(product), product);
+      }
+    }
+    printInfo(info: "Total similar products: ${similarProducts.length}");
+  }
 
   Widget colorSelection({required List<String> colors}) {
     return Row(
@@ -116,49 +135,52 @@ class DetailsPageController extends GetxController {
   }
 
   Widget reviewListView({required List<Map<String, dynamic>> reviews}) {
-    return ListView.builder(
-      itemCount: reviews.length,
-      itemBuilder: (context, index) {
-        return Container(
-          // height: 70,
-          margin: EdgeInsets.all(8),
-          padding: EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            color: AppColor.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MyText(
-                    text: reviews[index]["userId"],
-                    style: MyTextStyles.small,
-                  ),
-                  Row(
-                    children: [
-                      Icon(Icons.star, color: AppColor.warning, size: 12),
-                      MyText(
-                        text: reviews[index]["rating"].toString(),
-                        style: MyTextStyles.small,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5),
-                child: MyText(
-                  text: reviews[index]["comment"].toString() * 10,
-                  style: MyTextStyles.extraSmall,
+    return Container(
+      constraints: BoxConstraints(maxHeight: 400, minHeight: 100),
+      child: ListView.builder(
+        itemCount: reviews.length,
+        itemBuilder: (context, index) {
+          return Container(
+            // height: 70,
+            margin: EdgeInsets.all(8),
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: AppColor.white,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    MyText(
+                      text: reviews[index]["userId"],
+                      style: MyTextStyles.small,
+                    ),
+                    Row(
+                      children: [
+                        Icon(Icons.star, color: AppColor.warning, size: 12),
+                        MyText(
+                          text: reviews[index]["rating"].toString(),
+                          style: MyTextStyles.small,
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        );
-      },
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: MyText(
+                    text: reviews[index]["comment"].toString() * 10,
+                    style: MyTextStyles.extraSmall,
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -206,7 +228,7 @@ class DetailsPageController extends GetxController {
                     children: [
                       Expanded(
                         child: Text(
-                          '\$${(product.offerValue * detailsModel.value.quantity).toStringAsFixed(2)}',
+                          '${(product.offerValue * detailsModel.value.quantity).toStringAsFixed(2)}৳',
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,

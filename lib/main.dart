@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:ae_kits/routes/all_binding.dart';
 import 'package:ae_kits/routes/all_pages.dart';
 import 'package:ae_kits/routes/page_names.dart';
@@ -9,6 +11,10 @@ import 'languages/languages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+ 
+await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
 
   runApp(const MyApp());
 }

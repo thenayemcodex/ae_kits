@@ -1,3 +1,4 @@
+import 'package:ae_kits/pages/authentication/view/authentication_page.dart';
 import 'package:ae_kits/pages/home/view/home_page.dart';
 import 'package:ae_kits/pages/main/view/main_page.dart';
 import 'package:ae_kits/pages/notification/view/notification_page.dart';
@@ -11,6 +12,13 @@ class AllPages {
     GetPage(
       name: PageNames.splash,
       page: () => const SplashPage(),
+      transition: Transition.cupertinoDialog,
+      curve: Curves.bounceInOut,
+      transitionDuration: const Duration(seconds: 1),
+    ),
+    GetPage(
+      name: PageNames.auth,
+      page: () => const AuthenticationPage(),
       transition: Transition.cupertinoDialog,
       curve: Curves.bounceInOut,
       transitionDuration: const Duration(seconds: 1),

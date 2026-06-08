@@ -73,7 +73,12 @@ class HomePage extends StatelessWidget {
                 },
                 icon: const Icon(Icons.notifications),
               ),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+              IconButton(
+                onPressed: () => (controller.searchBarSize.value == 0.9)
+                    ? controller.searchBarSize.value = 0.0
+                    : controller.searchBarSize.value = 0.9,
+                icon: const Icon(Icons.search),
+              ),
               IconButton(
                 onPressed: () {
                   var current = Get.locale;
@@ -86,6 +91,9 @@ class HomePage extends StatelessWidget {
 
           // Games type list view. this show category of the gaming kits
           controller.categoryOfGames(),
+
+          // searchBar
+          controller.searchBar(),
 
           // products grid view
           controller.productListView(),

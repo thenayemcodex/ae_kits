@@ -5,6 +5,6 @@ class SplashPageController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    Future.delayed(Duration(seconds: 2), () => Get.toNamed(PageNames.main));
+    Future.delayed(Duration(seconds: 2), () => Get.toNamed(PageNames.auth));
   }
 }

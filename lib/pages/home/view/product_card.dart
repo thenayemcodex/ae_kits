@@ -113,7 +113,7 @@ class ProductGridCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '\$${product.offerValue.toStringAsFixed(2)}',
+                        '${product.offerValue.toStringAsFixed(2)}৳',
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -123,7 +123,7 @@ class ProductGridCard extends StatelessWidget {
                       if (hasOffer) ...[
                         const SizedBox(width: 6),
                         Text(
-                          '\$${product.unitValue.toStringAsFixed(2)}',
+                          '${product.unitValue.toStringAsFixed(2)}৳',
                           style: TextStyle(
                             fontSize: 12,
                             color: AppColor.failed,

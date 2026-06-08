@@ -1,3 +1,4 @@
+import 'package:ae_kits/pages/authentication/view_model/authentication_page_controller.dart';
 import 'package:ae_kits/pages/checkout/view_model/checkout_page_controller.dart';
 import 'package:ae_kits/pages/details/view_model/details_page_controller.dart';
 import 'package:ae_kits/pages/home/view_model/home_page_controller.dart';
@@ -12,10 +13,11 @@ class AllBinding extends Bindings {
   @override
   void dependencies() {
     Get.put(SplashPageController());
+    Get.put(AuthenticationPageController());
     Get.put(MainPageController(), permanent: true);
     Get.put(HomePageController(), permanent: true);
     Get.put(SavedPageController());
-    Get.put(ProfilePageController());
+    Get.put(ProfilePageController(), permanent: true);
     Get.put(DetailsPageController(), permanent: true);
     Get.put(NotificationPageController(), permanent: true);
     Get.put(CheckOutPageController());

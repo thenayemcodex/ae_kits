@@ -25,6 +25,8 @@ class CheckOutPageController extends GetxController {
   RxBool isNoteAdded = false.obs;
   TextEditingController notesController = TextEditingController();
 
+  RxString selectedPaymentOption = "bkash".obs;
+
   @override
   void onReady() {
     super.onReady();
@@ -540,128 +542,194 @@ class CheckOutPageController extends GetxController {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: MyText(
-                                  text: Consts.paymentOption[0]["name"]!,
-                                ),
-                              );
-                            },
-                          );
+                          selectedPaymentOption.value =
+                              Consts.paymentOption[0]["name"]!;
                         },
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(
-                            vertical: 5,
-                            horizontal: 5,
-                          ),
+                        child: Obx(
+                          () => Container(
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 5,
+                              horizontal: 5,
+                            ),
 
-                          decoration: BoxDecoration(
-                            color: AppColor.secondary,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Row(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(5),
-                                child: Image.asset(
-                                  Consts.paymentOption[0]["icon"]!,
-                                  width: 45,
-                                  height: 35,
-                                  fit: BoxFit.cover,
+                            decoration: BoxDecoration(
+                              color: AppColor.secondary,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                width: 1,
+                                color:
+                                    (selectedPaymentOption.value ==
+                                        Consts.paymentOption[0]["name"]!)
+                                    ? AppColor.grey.withAlpha(80)
+                                    : Colors.transparent,
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: Image.asset(
+                                    Consts.paymentOption[0]["icon"]!,
+                                    width: 45,
+                                    height: 35,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 5,
-                          horizontal: 5,
-                        ),
+                      GestureDetector(
+                        onTap: () {
+                          selectedPaymentOption.value =
+                              Consts.paymentOption[1]["name"]!;
+                        },
+                        child: Obx(
+                          () => Container(
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 5,
+                              horizontal: 5,
+                            ),
 
-                        decoration: BoxDecoration(
-                          color: AppColor.secondary,
-                          borderRadius: BorderRadius.circular(5),
+                            decoration: BoxDecoration(
+                              color: AppColor.secondary,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                width: 1,
+                                color:
+                                    (selectedPaymentOption.value ==
+                                        Consts.paymentOption[1]["name"]!)
+                                    ? AppColor.grey.withAlpha(80)
+                                    : Colors.transparent,
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: Image.asset(
+                                    Consts.paymentOption[1]["icon"]!,
+                                    width: 45,
+                                    height: 35,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                        child: Row(
-                          children: [
-                            ClipRRect(
+                      ),
+
+                      GestureDetector(
+                        onTap: () {
+                          selectedPaymentOption.value =
+                              Consts.paymentOption[2]["name"]!;
+                        },
+                        child: Obx(
+                          () => Container(
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 5,
+                              horizontal: 5,
+                            ),
+
+                            decoration: BoxDecoration(
+                              color: AppColor.secondary,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                width: 1,
+                                color:
+                                    (selectedPaymentOption.value ==
+                                        Consts.paymentOption[2]["name"]!)
+                                    ? AppColor.grey.withAlpha(80)
+                                    : Colors.transparent,
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: Image.asset(
+                                    Consts.paymentOption[2]["icon"]!,
+                                    width: 45,
+                                    height: 35,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          selectedPaymentOption.value =
+                              Consts.paymentOption[3]["name"]!;
+                        },
+                        child: Obx(
+                          () => Container(
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 5,
+                              horizontal: 5,
+                            ),
+
+                            decoration: BoxDecoration(
+                              color: AppColor.secondary,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                width: 1,
+                                color:
+                                    (selectedPaymentOption.value ==
+                                        Consts.paymentOption[3]["name"]!)
+                                    ? AppColor.grey.withAlpha(80)
+                                    : Colors.transparent,
+                              ),
+                            ),
+                            child: ClipRRect(
                               borderRadius: BorderRadius.circular(5),
                               child: Image.asset(
-                                Consts.paymentOption[1]["icon"]!,
+                                Consts.paymentOption[3]["icon"]!,
                                 width: 45,
                                 height: 35,
                                 fit: BoxFit.cover,
                               ),
                             ),
-                          ],
+                          ),
                         ),
                       ),
+                      GestureDetector(
+                        onTap: () {
+                          selectedPaymentOption.value =
+                              Consts.paymentOption[4]["name"]!;
+                        },
+                        child: Obx(
+                          () => Container(
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 5,
+                              horizontal: 5,
+                            ),
 
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 5,
-                          horizontal: 5,
-                        ),
-
-                        decoration: BoxDecoration(
-                          color: AppColor.secondary,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          children: [
-                            ClipRRect(
+                            decoration: BoxDecoration(
+                              color: AppColor.secondary,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                width: 1,
+                                color:
+                                    (selectedPaymentOption.value ==
+                                        Consts.paymentOption[4]["name"]!)
+                                    ? AppColor.grey.withAlpha(80)
+                                    : Colors.transparent,
+                              ),
+                            ),
+                            child: ClipRRect(
                               borderRadius: BorderRadius.circular(5),
                               child: Image.asset(
-                                Consts.paymentOption[2]["icon"]!,
+                                Consts.paymentOption[4]["icon"]!,
                                 width: 45,
                                 height: 35,
                                 fit: BoxFit.cover,
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 5,
-                          horizontal: 5,
-                        ),
-
-                        decoration: BoxDecoration(
-                          color: AppColor.secondary,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(5),
-                          child: Image.asset(
-                            Consts.paymentOption[3]["icon"]!,
-                            width: 45,
-                            height: 35,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 5,
-                          horizontal: 5,
-                        ),
-
-                        decoration: BoxDecoration(
-                          color: AppColor.secondary,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(5),
-                          child: Image.asset(
-                            Consts.paymentOption[4]["icon"]!,
-                            width: 45,
-                            height: 35,
-                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
@@ -744,7 +812,12 @@ class CheckOutPageController extends GetxController {
           ? Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await showPaymentConfirmation(
+                    context,
+                    type: selectedPaymentOption.value,
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColor.primary,
                   foregroundColor: AppColor.white,
@@ -765,4 +838,105 @@ class CheckOutPageController extends GetxController {
           : SizedBox(),
     );
   }
+
+  // show payment confirmation dialog
+  Future<void> showPaymentConfirmation(
+    BuildContext context, {
+    required String type,
+  }) async {
+    TextEditingController accountNumber = TextEditingController();
+    TextEditingController transactionMumber = TextEditingController();
+    TextEditingController paidAmount = TextEditingController();
+
+    paidAmount.text = (totalPayableAmount.value + totalDeliveryFee.value)
+        .toStringAsFixed(2);
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          icon: ClipRRect(
+            borderRadius: BorderRadius.circular(5),
+            child: Image.asset(
+              (type == Consts.paymentOption[0]["name"]!.toLowerCase())
+                  ? Consts.paymentOption[0]["icon"]!
+                  : (type == Consts.paymentOption[1]["name"]!.toLowerCase())
+                  ? Consts.paymentOption[1]["icon"]!
+                  : (type == Consts.paymentOption[2]["name"]!.toLowerCase())
+                  ? Consts.paymentOption[2]["icon"]!
+                  : "assets/logo.png",
+              height: 50,
+              width: 60,
+            ),
+          ),
+          title: MyText(
+            text: "${type.toUpperCase()} Payment",
+            style: MyTextStyles.bodyBold,
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: MyInput(
+                  controller: accountNumber,
+                  onChange: (text) {},
+                  borderRadius: BorderRadius.circular(5),
+                  fillColor: AppColor.white,
+                  label: "Account Number",
+                  labelStyle: MyTextStyles.small,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: MyInput(
+                  controller: transactionMumber,
+                  onChange: (text) {},
+                  borderRadius: BorderRadius.circular(5),
+                  fillColor: AppColor.white,
+                  label: "Transaction Number",
+                  labelStyle: MyTextStyles.small,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: MyInput(
+                  controller: paidAmount,
+                  onChange: (text) {},
+                  borderRadius: BorderRadius.circular(5),
+                  fillColor: AppColor.white,
+                  label: "Paid Amount (৳)",
+                  labelStyle: MyTextStyles.small,
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.primary,
+                    foregroundColor: AppColor.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.check, color: AppColor.white),
+                      SizedBox(width: 10),
+                      MyText(text: "confirm".tr),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  // stop there
 }
