@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 350,
+            expandedHeight: 250,
             pinned: true,
             floating: false,
             snap: false,
@@ -24,25 +24,33 @@ class HomePage extends StatelessWidget {
             elevation: 2,
             centerTitle: true,
             leading: Container(
-              margin: EdgeInsets.all(3),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: Image.asset("assets/logo.png"),
+              margin: EdgeInsets.only(bottom: 5),
+              child: AnimatedScale(
+                duration: Duration(seconds: 1),
+                scale: 1.2,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Image.asset("assets/logo.png"),
+                ),
               ),
             ),
             flexibleSpace: FlexibleSpaceBar(
-              title: ShaderMask(
-                shaderCallback: (bounds) {
-                  return LinearGradient(
-                    colors: [AppColor.primary, AppColor.accent],
-                  ).createShader(bounds);
-                },
-                child: Text(
-                  "app_name".tr,
-                  style: TextStyle(
-                    fontSize: 37,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+              centerTitle: true,
+              title: Padding(
+                padding: EdgeInsets.only(top: 5),
+                child: ShaderMask(
+                  shaderCallback: (bounds) {
+                    return LinearGradient(
+                      colors: [AppColor.primary, AppColor.accent],
+                    ).createShader(bounds);
+                  },
+                  child: Text(
+                    "app_name".tr,
+                    style: TextStyle(
+                      fontSize: 34,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
@@ -78,13 +86,6 @@ class HomePage extends StatelessWidget {
                     ? controller.searchBarSize.value = 0.0
                     : controller.searchBarSize.value = 0.9,
                 icon: const Icon(Icons.search),
-              ),
-              IconButton(
-                onPressed: () {
-                  var current = Get.locale;
-                  print("Lang Code: ${current?.languageCode}");
-                },
-                icon: const Icon(Icons.translate_outlined),
               ),
             ],
           ),

@@ -25,9 +25,8 @@ class HomePageController extends GetxController {
   List<ProductModel> completeProductModel = Consts.dummyProducts;
 
   // search button
-  RxBool isSearchBarOpen = false.obs;
   TextEditingController searchBarController = TextEditingController();
-  RxDouble searchBarSize = 0.9.obs;
+  RxDouble searchBarSize = 0.0.obs;
 
   @override
   void onReady() {
@@ -170,10 +169,28 @@ class HomePageController extends GetxController {
                     onChange: (value) {},
                     maxLine: 1,
                     height: 45,
-                    placeholder: "Search here",
-                    suffixIcon
-                    : IconButton(
-                      onPressed: () {},
+                    placeholder: "Search here [at least 2 latter]",
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        if (searchBarController.text.trim().length <= 1) {
+                          updatedProductModel.clear();
+                          updatedProductModel.addAll(completeProductModel);
+                        } else {
+                          updatedProductModel.clear();
+                          updatedProductModel.addAll(
+                            completeProductModel
+                                .where(
+                                  (item) =>
+                                      item.productName.toLowerCase().contains(
+                                        searchBarController.text
+                                            .toLowerCase()
+                                            .trim(),
+                                      ),
+                                )
+                                .toList(),
+                          );
+                        }
+                      },
                       icon: Icon(Icons.search, color: AppColor.white, size: 30),
                     ),
 

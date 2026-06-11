@@ -10,6 +10,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<MainPageController>();
+    controller.checkUserCredentials(context);
     return Scaffold(
       body: Obx(() => controller.bodyWidget()),
       bottomNavigationBar: Obx(

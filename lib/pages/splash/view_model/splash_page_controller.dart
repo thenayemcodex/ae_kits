@@ -5,6 +5,14 @@ class SplashPageController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    Future.delayed(Duration(seconds: 2), () => Get.toNamed(PageNames.auth));
+    changePage();
+  }
+
+  void changePage() async {
+    await Future.delayed(
+      Duration(seconds: 1),
+      () => printInfo(info: "1 Second finished !"),
+    );
+    Get.toNamed(PageNames.main);
   }
 }

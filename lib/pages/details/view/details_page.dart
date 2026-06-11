@@ -27,7 +27,10 @@ class _DetailsPageState extends State<DetailsPage> {
     controller.currentImage.value = widget.product.productImages.first;
     controller.productCategory = widget.product.category;
     controller.detailsModel.value = controller.detailsModel.value.copyWith(
+      productImage: widget.product.productImages[0],
       productCode: widget.product.productCode,
+      unitPrice: widget.product.offerValue,
+      shipping: widget.product.deliveryFees,
     );
     controller.getSimilarProducts();
     return Scaffold(
@@ -60,11 +63,12 @@ class _DetailsPageState extends State<DetailsPage> {
                       child: IconButton(
                         onPressed: () {
                           controller.detailsModel.value = DetailsModel(
-                            id: "",
                             productImage: "",
                             productCode: "",
                             productColor: "",
                             productSize: "",
+                            shipping: 0,
+                            unitPrice: 0,
                             quantity: 1,
                           );
                           Get.back();

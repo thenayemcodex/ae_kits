@@ -1,6 +1,7 @@
 import 'package:ae_kits/pages/details/model/details_model.dart';
 import 'package:ae_kits/pages/home/model/product_model.dart';
 import 'package:ae_kits/pages/home/view_model/home_page_controller.dart';
+import 'package:ae_kits/pages/profile/view_model/profile_page_controller.dart';
 import 'package:ae_kits/theme/app_color.dart';
 import 'package:ae_kits/theme/my_text_styles.dart';
 import 'package:ae_kits/utils/consts.dart';
@@ -14,6 +15,7 @@ import 'package:get/get.dart';
 class CheckOutPageController extends GetxController {
   // accessing home page controller
   final homePageController = Get.find<HomePageController>();
+  final profilePageController = Get.find<ProfilePageController>();
 
   List<DetailsModel> detailsModel = <DetailsModel>[];
   RxList<ProductModel> productModel = <ProductModel>[].obs;

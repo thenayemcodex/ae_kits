@@ -10,16 +10,10 @@ class FirebaseServices extends GetxService {
   static final auth = FirebaseAuth.instance;
   static final CollectionReference usersRef = FirebaseFirestore.instance
       .collection("users");
-  static final CollectionReference attendancesRef = FirebaseFirestore.instance
-      .collection("attendances");
-  static final CollectionReference employeeRef = FirebaseFirestore.instance
-      .collection("employees");
-  static final CollectionReference locationsRef = FirebaseFirestore.instance
-      .collection("locations");
-  static final CollectionReference designationsRef = FirebaseFirestore.instance
-      .collection("designations");
-  static final CollectionReference performancesRef = FirebaseFirestore.instance
-      .collection("performances");
+  static final CollectionReference adminsRef = FirebaseFirestore.instance
+      .collection("admins");
+  static final CollectionReference inventoryRef = FirebaseFirestore.instance
+      .collection("inventory");
 
   // authentication process
   static Future<String?> login(
@@ -48,7 +42,47 @@ class FirebaseServices extends GetxService {
         email: mail,
         password: pass,
       );
+
       Utils.showSuccessToast(context, "authentication_successful".tr);
+      return user.user?.uid;
+    } catch (e) {
+      // Handle unexpected errors
+      log("Unexpected error occurred: $e");
+      Utils.showFailedToast(
+        context,
+        "an_unexpected_error_occurred_please_try_again".tr,
+      );
+      return null;
+    }
+  }
+
+  static Future<String?> silentLogin(
+    BuildContext context, {
+    required String mail,
+    required String pass,
+  }) async {
+    try {
+      if (mail.isEmpty || pass.isEmpty) {
+        Utils.showWarningToast(
+          context,
+          "email_address_or_password_cannot_be_empty".tr,
+        );
+        return null;
+      }
+      if (pass.length <= 7) {
+        Utils.showWarningToast(
+          context,
+          "password_must_be_at_least_characters_long".tr,
+        );
+        return null;
+      }
+
+      // Sign in the user
+      final user = await auth.signInWithEmailAndPassword(
+        email: mail,
+        password: pass,
+      );
+
       return user.user?.uid;
     } catch (e) {
       // Handle unexpected errors
@@ -152,12 +186,51 @@ class FirebaseServices extends GetxService {
     }
   }
 
-  static bool checkAccountVerificationState(BuildContext context) {
+  static bool checkAccountVerificationState() {
     try {
       var user = auth.currentUser;
       return user!.emailVerified;
     } catch (e) {
       return false;
+    }
+  }
+
+  static bool checkUserLoginState() {
+    try {
+      var user = auth.currentUser;
+      return (user != null);
+    } catch (e) {
+      return false;
+    }
+  }
+
+  static Future<bool> updateProfileStatus(BuildContext context) async {
+    try {
+      Utils.showLoading(context);
+      await usersRef.doc(auth.currentUser!.uid).update({"status": true});
+
+      return true;
+    } catch (e) {
+      return false;
+    } finally {
+      Get.back();
+    }
+  }
+
+  static Future<ProfileModel?> getUserProfile() async {
+    try {
+      final responseData = await usersRef.doc(auth.currentUser!.uid).get();
+
+      if (responseData.exists) {
+        return ProfileModel.fromMap(
+          responseData.data() as Map<String, dynamic>,
+        );
+      }
+
+      return null;
+    } catch (error) {
+      print("User profile data could not be fetched.\n$error");
+      return null;
     }
   }
 
@@ -174,7 +247,6 @@ class FirebaseServices extends GetxService {
       Get.back();
     }
   }
-
 
   // static Future<bool> deleteEmployee(
   //   BuildContext context, {

@@ -27,12 +27,12 @@ class ProfilePage extends StatelessWidget {
             // user data container
             controller.userDataContainer(),
             // profile management options
-            controller.profileManagementOptions(),
+            controller.profileManagementOptions(context),
             // developer info
             Container(
               width: double.infinity,
               height: 300,
-              margin: EdgeInsets.only(top: 15),
+              margin: EdgeInsets.only(top: 10),
               child: Column(
                 children: [
                   MyText(

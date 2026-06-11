@@ -26,11 +26,12 @@ class DetailsPageController extends GetxController {
   // customer choise info
   String productCategory = "";
   Rx<DetailsModel> detailsModel = DetailsModel(
-    id: "",
     productImage: "",
     productCode: "",
     productColor: "",
     productSize: "",
+    shipping: 0,
+    unitPrice: 0,
     quantity: 1,
   ).obs;
 
